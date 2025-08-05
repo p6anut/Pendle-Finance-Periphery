@@ -1,14 +1,14 @@
 import { CHAINS, PoolConfiguration } from './types';
 
-export const CHAIN = CHAINS.ETHEREUM;
+export const CHAIN = CHAINS.BNB;
 
 export const POOL_INFO: PoolConfiguration = {
-  SY: '0x7ac8ca87959b1d5edfe2df5325a37c304dcea4d0',
-  YT: '0xe8ef806c8aadc541408dcad36107c7d26a391712',
+  SY: '0x30ccf4bbee313fcd19f3e295b3ba2920a24e2f62',
+  YT: '0x365e24398c0c0f03ab1c5423d3e665ede408198d',
   LPs: [
     {
-      address: '0xe93b4a93e80bd3065b290394264af5d82422ee70',
-      deployedBlock: 22472324
+      address: '0x9edac81bac78a2c06b59514d6eb62dd7a57adf21',
+      deployedBlock: 55823452
     }
   ]
 };

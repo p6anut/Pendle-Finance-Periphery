@@ -1,5 +1,5 @@
 import { CHAIN, POOL_INFO } from './configuration';
-import { _1E18 } from './consts';
+import {_1E18, RPCS} from './consts';
 import { resolveMorpho } from './lib/morpho';
 import {
   applyLpHolderShares,
@@ -9,6 +9,9 @@ import {
 import { tryAggregateMulticall } from './multicall';
 import { FullMarketInfo, LiquidLockerData, PendleAPI } from './pendle-api';
 import { UserRecord } from './types';
+import {ethers} from "ethers";
+import path from "path";
+import * as fs from "fs";
 
 type SnapshotResult = {
   resultYT: UserRecord;
@@ -83,18 +86,41 @@ async function fetchUserBalanceSnapshotBatch(
 }
 
 async function main() {
-  const block = 22835503;
+    const now = new Date();
+    const dateStr = now.toISOString().split('T')[0]; // 格式: YYYY-MM-DD
 
-  const res = (await fetchUserBalanceSnapshotBatch([block]))[0];
+    // 创建按日期组织的目录结构
+    const outputDir = path.join(__dirname, 'output', now.getFullYear().toString(), (now.getMonth() + 1).toString().padStart(2, '0'));
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir, { recursive: true });
+    }
 
-  // for (const user in res.resultYT) {
-  //   if (res.resultYT[user].eq(0)) continue;
-  //   // console.log(user, res.resultYT[user].toString());
-  // }
+    // 创建带日期的CSV文件
+    const ytCsvPath = path.join(outputDir, `yt_balances_${dateStr}.csv`);
+    const lpCsvPath = path.join(outputDir, `lp_balances_${dateStr}.csv`);
 
-  // for (const user in res.resultLP) {
-  //   if (res.resultLP[user].eq(0)) continue;
-  // }
+    // 写入CSV表头
+    fs.writeFileSync(ytCsvPath, 'user,balance,date\n');
+    fs.writeFileSync(lpCsvPath, 'user,balance,date\n');
+
+    const block = await (new ethers.providers.JsonRpcProvider(RPCS[56])).getBlockNumber();
+    const res = (await fetchUserBalanceSnapshotBatch([block]))[0];
+
+    // 保存YT余额
+    for (const user in res.resultYT) {
+        if (res.resultYT[user].eq(0)) continue;
+        const balance = res.resultYT[user].toString();
+        fs.appendFileSync(ytCsvPath, `${user},${balance},${dateStr}\n`);
+    }
+
+    // 保存LP余额
+    for (const user in res.resultLP) {
+        if (res.resultLP[user].eq(0)) continue;
+        const balance = res.resultLP[user].toString();
+        fs.appendFileSync(lpCsvPath, `${user},${balance},${dateStr}\n`);
+    }
+
+    console.log(`[${new Date().toISOString()}] 数据已保存到: ${outputDir}`);
 }
 
 main().catch(console.error);

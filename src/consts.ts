@@ -23,7 +23,7 @@ const envSchema = z.object({
 });
 const env = envSchema.parse(process.env);
 
-const RPCS = {
+export const RPCS = {
   1: env.ETH_RPC || 'https://eth.llamarpc.com',
   42161: env.ARBITRUM_RPC || 'https://arbitrum-one-rpc.publicnode.com',
   56: env.BSC_RPC || 'https://binance.llamarpc.com',
