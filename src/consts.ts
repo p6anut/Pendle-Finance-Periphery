@@ -8,7 +8,7 @@ import PendleYieldTokenABI from '../abis/PendleYieldToken.json';
 import PendleMarketABI from '../abis/PendleMarket.json';
 import PendleYieldContractFactoryABI from '../abis/PendleYieldContractFactory.json';
 import PendleOracleABI from '../abis/PendleOracle.json';
-import MorphoblueABI from '../abis/Morphoblue.json';
+import MorphoblueABI from '../abis/MorphoBlue.json';
 
 dotenv.config();
 const envSchema = z.object({
