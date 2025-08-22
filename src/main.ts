@@ -88,6 +88,7 @@ async function fetchUserBalanceSnapshotBatch(
 async function main() {
     const now = new Date();
     const dateStr = now.toISOString().split('T')[0]; // 格式: YYYY-MM-DD
+    // const dateStr = now.toISOString(); // 格式: YYYY-MM-DD
 
     // 创建按日期组织的目录结构
     const outputDir = path.join(__dirname, 'output', now.getFullYear().toString(), (now.getMonth() + 1).toString().padStart(2, '0'));
