@@ -18,8 +18,8 @@ import { BlockUtils } from './utils/blockUtils';
 // 加载环境变量
 dotenv.config();
 
-// 配置开始日期（2024年8月5日）
-const START_DATE = new Date('2024-08-05T00:00:00Z');
+// 配置开始日期（2025年9月17日）
+const START_DATE = new Date('2025-09-17T00:00:00Z');
 
 // 确保类型定义
 type SnapshotResult = {
@@ -105,7 +105,7 @@ async function saveToDatabase(userBalances: SnapshotResult, blockNumber: number,
       if (userBalances.resultYT[user].eq(0)) continue;
       
       await client.query(
-        `INSERT INTO pendle_user_balances (user_address, token_type, balance, block_number, snapshot_date)
+        `INSERT INTO pendle_user_balances_a (user_address, token_type, balance, block_number, snapshot_date)
          VALUES ($1, $2, $3, $4, $5)
          ON CONFLICT (user_address, token_type, block_number) 
          DO UPDATE SET balance = EXCLUDED.balance, snapshot_date = EXCLUDED.snapshot_date`,
@@ -118,7 +118,7 @@ async function saveToDatabase(userBalances: SnapshotResult, blockNumber: number,
       if (userBalances.resultLP[user].eq(0)) continue;
       
       await client.query(
-        `INSERT INTO pendle_user_balances (user_address, token_type, balance, block_number, snapshot_date)
+        `INSERT INTO pendle_user_balances_a (user_address, token_type, balance, block_number, snapshot_date)
          VALUES ($1, $2, $3, $4, $5)
          ON CONFLICT (user_address, token_type, block_number) 
          DO UPDATE SET balance = EXCLUDED.balance, snapshot_date = EXCLUDED.snapshot_date`,
