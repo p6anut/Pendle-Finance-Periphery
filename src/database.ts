@@ -5,7 +5,7 @@ import { Client } from 'pg';
 const dbConfig = {
   user: process.env.DB_USER || 'postgres',
   host: process.env.DB_HOST || 'sigma-dev.ctsuamic89ks.us-east-2.rds.amazonaws.com',
-  database: process.env.DB_NAME || 'sigma-prod-202507081800',
+  database: process.env.DB_NAME || 'sigma-prod-202508052000',
   password: process.env.DB_PASSWORD || 'XrKACE3OADCBzXDbluzz',
   port: parseInt(process.env.DB_PORT || '5432'),
 };
