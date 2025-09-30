@@ -11,7 +11,7 @@ async function checkSyncStatus() {
     // 检查最近7天的同步状态
     const result = await client.query(
       `SELECT sync_date, block_number, status 
-       FROM pendle_sync_history 
+       FROM pendle_sync_history_a 
        WHERE sync_date >= CURRENT_DATE - INTERVAL '7 days'
        ORDER BY sync_date DESC`
     );

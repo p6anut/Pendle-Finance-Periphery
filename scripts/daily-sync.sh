@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 每日数据同步脚本
-cd /home/ubuntu/Pendle-Finance-Periphery
+cd /home/ubuntu/Pendle-Finance-Periphery-Pool-A/Pendle-Finance-Periphery
 
 # 拉取最新代码（如果有）
 # git pull
