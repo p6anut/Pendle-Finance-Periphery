@@ -7,7 +7,7 @@ cd /home/ubuntu/Pendle-Finance-Periphery
 # git pull
 
 # 安装依赖
-npm install
+#npm install
 
 # 运行同步程序
 npm run start

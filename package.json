@@ -2,6 +2,7 @@
   "name": "pendle-generic-balance-fetcher",
   "dependencies": {
     "@types/node": "^20.14.2",
+    "alchemy-sdk": "^3.6.3",
     "axios": "^1.6.8",
     "dotenv": "^17.0.0",
     "ethers": "^5.7.2",

@@ -18,8 +18,8 @@ import { BlockUtils } from './utils/blockUtils';
 // 加载环境变量
 dotenv.config();
 
-// 配置开始日期（2024年8月5日）
-const START_DATE = new Date('2024-08-05T00:00:00Z');
+// 配置开始日期（2025年8月5日）
+const START_DATE = new Date('2025-08-05T00:00:00Z');
 
 // 确保类型定义
 type SnapshotResult = {
@@ -169,13 +169,21 @@ async function main() {
     
     // 获取已同步的日期
     const syncedDates = await getSyncHistory();
+    // // 将数据库中的日期字符串转换为 YYYY-MM-DD 格式
+    const syncedDateStrings = new Set(
+      Array.from(syncedDates).map(dateStr => {
+        const date = new Date(dateStr);
+        return DateUtils.formatDate(date);
+      })
+    );
+    console.log('已同步的日期:', Array.from(syncedDateStrings).join(', '));
     console.log(`已同步 ${syncedDates.size} 个日期的数据`);
     
     // 生成需要同步的日期列表（从开始日期到今天）
     const allDates = DateUtils.getDatesFromStartToToday(START_DATE);
     const datesToSync = allDates.filter(date => {
       const dateStr = DateUtils.formatDate(date);
-      return !syncedDates.has(dateStr);
+      return !syncedDateStrings.has(dateStr);
     });
     
     if (datesToSync.length === 0) {
